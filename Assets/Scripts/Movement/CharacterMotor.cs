@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace SooperDooper.Gameplay.Movement
+namespace MaulGrab.Gameplay.Movement
 {
     public class CharacterMotor : MonoBehaviour
     {
@@ -18,6 +18,12 @@ namespace SooperDooper.Gameplay.Movement
         public void Construct( Rigidbody2D body )
 		{
             _body = body;
+		}
+
+		public void ClearVelocity()
+		{
+			_velocity = Vector3.zero;
+			_desiredVelocity = Vector3.zero;
 		}
 
         public void SetDesiredVelocity( Vector3 direction )

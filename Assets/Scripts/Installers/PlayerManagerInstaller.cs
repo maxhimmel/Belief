@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace SooperDooper.Installers
+namespace MaulGrab.Installers
 {
     public class PlayerManagerInstaller : MonoInstaller
     {
