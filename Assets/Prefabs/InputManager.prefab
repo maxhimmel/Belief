@@ -159,7 +159,7 @@ MonoBehaviour:
         exportConsts_useParentClass: 0
         exportConsts_parentClassName: RewiredConsts
         exportConsts_useNamespace: 1
-        exportConsts_namespace: Belief.ReConsts
+        exportConsts_namespace: MaulGrab.ReConsts
         exportConsts_actions: 1
         exportConsts_actionsClassName: Action
         exportConsts_actionsIncludeActionCategory: 0
@@ -242,6 +242,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 1
+    - _id: 2
+      _name: Fire
+      _type: 1
+      _descriptiveName: Fire
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 1
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -258,7 +267,7 @@ MonoBehaviour:
       - categoryId: 0
         actionIds: 
       - categoryId: 1
-        actionIds: 0000000001000000
+        actionIds: 000000000100000002000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -455,7 +464,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: -1
+        _actionId: 2
         _elementType: 1
         _elementIdentifierId: 12
         _axisRange: 0
@@ -582,7 +591,7 @@ MonoBehaviour:
     controllerMapLayoutManagerRuleSets: []
     controllerMapEnablerRuleSets: []
     playerIdCounter: 2
-    actionIdCounter: 2
+    actionIdCounter: 3
     actionCategoryIdCounter: 2
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 2
