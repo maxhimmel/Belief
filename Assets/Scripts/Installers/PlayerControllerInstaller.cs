@@ -11,8 +11,8 @@ namespace MaulGrab.Installers
     {
 		public override void InstallBindings()
 		{
-			Container.Bind<Rigidbody2D>().FromComponentInChildren().AsSingle();
-			Container.Bind<CharacterMotor>().FromComponentInChildren().AsSingle();
+			Container.Bind<Rigidbody2D>().FromComponentOnRoot().AsSingle();
+			Container.Bind<CharacterMotor>().FromComponentOnRoot().AsSingle();
 
 			Container.Bind<Gun>().FromComponentInChildren().AsSingle();
 		}
