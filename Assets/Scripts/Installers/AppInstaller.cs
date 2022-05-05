@@ -1,9 +1,10 @@
+using MaulGrab.Gameplay.Utility;
 using UnityEngine;
 using Zenject;
 
 namespace MaulGrab.Installers
 {
-    public class PlayerManagerInstaller : MonoInstaller
+    public class AppInstaller : MonoInstaller
     {
         public override void InstallBindings()
         {
