@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18a0c21ce7dc40140a3ccd0c56e2dd67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _lifetime: 1
 --- !u!114 &8896212424051773245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,7 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2da4f8037288a8f47957dbe24ae705d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lifetime: 1
 --- !u!50 &8896212424051773247
 Rigidbody2D:
   serializedVersion: 4
@@ -223,7 +223,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
