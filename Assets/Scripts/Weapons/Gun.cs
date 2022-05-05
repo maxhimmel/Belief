@@ -73,6 +73,11 @@ namespace MaulGrab.Gameplay.Weapons
             _currentAmmoCount += ammoReceiveAmount;
 		}
 
+        public void AddAmmo( int ammo )
+		{
+            _heldAmmoCount = Mathf.Min( _maxAmmo, _heldAmmoCount + ammo );
+		}
+
 		private void FixedUpdate()
         {
             UpdateState();
