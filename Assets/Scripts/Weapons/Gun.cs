@@ -16,20 +16,37 @@ namespace MaulGrab.Gameplay.Weapons
         private Quaternion ShotOriginRotation => _shotOrigin != null ? _shotOrigin.rotation : transform.rotation;
 
         [SerializeField] private Transform _shotOrigin = default;
+
+        [BoxGroup( "Spread" )]
         [SerializeField, MinValue( 1 )] private int _bulletsPerShot = 1;
-        [SerializeField, MinValue( 1 )] private int _magazineSize = 6;
-        [SerializeField, MinValue( 0 )] private float _fireRate = 0.25f;
-        [SerializeField] private float _shotForce = 10;
+        [BoxGroup( "Spread" )]
         [SerializeField, Range( 0, 360 )] private float _shotSpread = 0;
+
+        [BoxGroup( "Ammo" )]
+        [SerializeField] private bool _useAmmo = true;
+        [BoxGroup( "Ammo" )]
+        [SerializeField, MinValue( 1 ), ShowIf( "_useAmmo" )] private int _magazineSize = 6;
+        [BoxGroup( "Ammo" )]
+        [SerializeField, MinValue( 1 ), ShowIf( "_useAmmo" )] private int _maxAmmo = 36;
+
+        [BoxGroup( "Misc" )]
+        [SerializeField, MinValue( 0 )] private float _fireRate = 0.25f;
+        [BoxGroup( "Misc" )]
+        [SerializeField] private float _shotForce = 10;
 
         private Projectile.Factory _projectileFactory;
         private bool _isFiringRequested = false;
         private float _fireCountdown = 0;
+        private int _currentAmmoCount = 0;
+        private int _heldAmmoCount = 0;
 
         [Inject]
 		public void Construct( Projectile.Factory projectileFactory )
 		{
             _projectileFactory = projectileFactory;
+
+            _currentAmmoCount = _magazineSize;
+            _heldAmmoCount = _maxAmmo;
 		}
 
         public void StartFiring()
@@ -42,20 +59,51 @@ namespace MaulGrab.Gameplay.Weapons
             _isFiringRequested = false;
         }
 
+        public void Reload()
+		{
+            if ( !_useAmmo )
+			{
+                return;
+			}
+
+            int ammoRequestAmount = _magazineSize - _currentAmmoCount;
+            int ammoReceiveAmount = Mathf.Min( _heldAmmoCount, ammoRequestAmount );
+
+            _heldAmmoCount -= ammoReceiveAmount;
+            _currentAmmoCount += ammoReceiveAmount;
+		}
+
 		private void FixedUpdate()
         {
-            _fireCountdown -= Time.deltaTime;
-            if ( _fireCountdown > 0 )
-			{
-                return;
-			}
+            UpdateState();
 
+            if ( CanFire() )
+            {
+                Fire();
+            }
+		}
+
+        private void UpdateState()
+        {
+            _fireCountdown -= Time.deltaTime;
+        }
+
+        private bool CanFire()
+		{
             if ( !_isFiringRequested )
 			{
-                return;
+                return false;
+			}
+            if ( _fireCountdown > 0 )
+			{
+                return false;
+			}
+            if ( _useAmmo && _currentAmmoCount <= 0 )
+			{
+                return false;
 			}
 
-            Fire();
+            return true;
 		}
 
         private void Fire()
@@ -76,6 +124,11 @@ namespace MaulGrab.Gameplay.Weapons
             }
 
             _fireCountdown = _fireRate;
+
+            if ( _useAmmo )
+            {
+                _currentAmmoCount = Mathf.Max( --_currentAmmoCount, 0 );
+            }
 		}
 
 #if UNITY_EDITOR
