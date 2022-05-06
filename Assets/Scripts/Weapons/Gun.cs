@@ -12,9 +12,6 @@ namespace MaulGrab.Gameplay.Weapons
 {
     public class Gun : MonoBehaviour
     {
-        private Vector3 ShotOriginPosition => _shotOrigin != null ? _shotOrigin.position : transform.position;
-        private Quaternion ShotOriginRotation => _shotOrigin != null ? _shotOrigin.rotation : transform.rotation;
-
         [SerializeField] private Transform _shotOrigin = default;
 
         [BoxGroup( "Spread" )]
@@ -33,6 +30,8 @@ namespace MaulGrab.Gameplay.Weapons
         [SerializeField, MinValue( 0 )] private float _fireRate = 0.25f;
         [BoxGroup( "Misc" )]
         [SerializeField] private float _shotForce = 10;
+        [BoxGroup( "Misc" )]
+        [SerializeField] private float _shotTorque = 30;
 
         private Projectile.Factory _projectileFactory;
         private bool _isFiringRequested = false;
@@ -47,6 +46,8 @@ namespace MaulGrab.Gameplay.Weapons
 
             _currentAmmoCount = _magazineSize;
             _heldAmmoCount = _maxAmmo;
+
+            _shotOrigin = _shotOrigin ?? transform;
 		}
 
         public void StartFiring()
@@ -113,9 +114,9 @@ namespace MaulGrab.Gameplay.Weapons
 
         private void Fire()
         {
-            Vector3 upDir = ShotOriginRotation * Vector3.up;
-            Vector3 rightDir = ShotOriginRotation * Vector3.right;
-            Vector3 normal = ShotOriginRotation * Vector3.forward;
+            Vector3 upDir = _shotOrigin.up;
+            Vector3 rightDir = _shotOrigin.right;
+            Vector3 normal = _shotOrigin.forward;
             Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
@@ -125,7 +126,9 @@ namespace MaulGrab.Gameplay.Weapons
                 bulletDir = rotationOffset * bulletDir;
 
                 Projectile newProjectile = _projectileFactory.Create();
-                newProjectile.Fire( bulletDir * _shotForce );
+                newProjectile.transform.SetPositionAndRotation( _shotOrigin.position, _shotOrigin.rotation );
+
+                newProjectile.Fire( bulletDir * _shotForce, _shotTorque );
             }
 
             _fireCountdown = _fireRate;
@@ -146,10 +149,11 @@ namespace MaulGrab.Gameplay.Weapons
             Gizmos.color = _drawColor;
             Handles.color = _drawColor;
 
-            Vector3 origin = ShotOriginPosition;
-            Vector3 upDir = ShotOriginRotation * Vector3.up;
-            Vector3 rightDir = ShotOriginRotation * Vector3.right;
-            Vector3 normal = ShotOriginRotation * Vector3.forward;
+            Transform shotOrigin = _shotOrigin ?? transform;
+            Vector3 origin = shotOrigin.position;
+            Vector3 upDir = shotOrigin.up;
+            Vector3 rightDir = shotOrigin.right;
+            Vector3 normal = shotOrigin.forward;
             Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
 
             Vector3 arcStart = rotationOffset * upDir;
