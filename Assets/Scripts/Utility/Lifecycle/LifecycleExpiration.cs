@@ -24,10 +24,19 @@ namespace MaulGrab.Gameplay.Utility
 
 		public override void Expire()
 		{
+			Cancel();
+			base.Expire();
+		}
+
+		private void OnDestroy()
+		{
+			Cancel();
+		}
+
+		private void Cancel()
+		{
 			_tokenSource.Cancel();
 			_tokenSource.Dispose();
-
-			base.Expire();
 		}
 	}
 }
