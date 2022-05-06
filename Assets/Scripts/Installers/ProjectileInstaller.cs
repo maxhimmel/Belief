@@ -9,14 +9,10 @@ namespace MaulGrab.Installers
 {
     public class ProjectileInstaller : MonoInstaller
     {
-		[SerializeField] private float _lifetime = 1;
-
 		public override void InstallBindings()
 		{
 			Container.Bind<Rigidbody2D>().FromComponentOnRoot().AsSingle();
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
-
-			Container.Bind<LifetimeService>().AsSingle().WithArguments( _lifetime );
 		}
 	}
 }
