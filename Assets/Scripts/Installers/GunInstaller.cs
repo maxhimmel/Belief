@@ -12,7 +12,14 @@ namespace MaulGrab.Installers
 
 		public override void InstallBindings()
 		{
-			Container.BindFactory<Projectile, Projectile.Factory>().FromComponentInNewPrefab( _projectilePrefab );
+			Container.BindFactory<Projectile, Projectile.Factory>()
+				.FromComponentInNewPrefab( _projectilePrefab )
+				.UnderTransform( GetEmptyParent );
+		}
+
+		private Transform GetEmptyParent( InjectContext context )
+		{
+			return null;
 		}
 	}
 }
