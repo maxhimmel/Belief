@@ -16,9 +16,10 @@ namespace MaulGrab.Gameplay.Weapons
             _body = body;
 		}
 
-        public void Fire( Vector3 velocity )
+        public void Fire( Vector3 velocity, float torque )
 		{
 			_body.AddForce( velocity, ForceMode2D.Impulse );
+			_body.AddTorque( torque, ForceMode2D.Impulse );
 		}
 
 		public void OnExpired()
