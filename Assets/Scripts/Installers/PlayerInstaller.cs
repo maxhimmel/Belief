@@ -7,7 +7,7 @@ using Zenject;
 
 namespace MaulGrab.Installers
 {
-    public class PlayerControllerInstaller : MonoInstaller
+    public class PlayerInstaller : MonoInstaller
     {
 		public override void InstallBindings()
 		{
