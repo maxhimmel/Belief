@@ -602,6 +602,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSpeed: 11.63
   _acceleration: 50.22
+  _rotationSpeed: 540
 --- !u!114 &432648187
 MonoBehaviour:
   m_ObjectHideFlags: 0
