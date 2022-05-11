@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Ambience
+    uniqueID: 3293048513
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 27748989
+    locked: 0
+  - name: Foreground
+    uniqueID: 4041970025
     locked: 0
