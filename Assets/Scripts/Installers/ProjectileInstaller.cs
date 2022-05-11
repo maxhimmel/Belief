@@ -13,6 +13,8 @@ namespace MaulGrab.Installers
 		{
 			Container.Bind<Rigidbody2D>().FromComponentOnRoot().AsSingle();
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
+
+			Container.Bind<Collider2D>().FromComponentInChildren().AsSingle();
 		}
 	}
 }
