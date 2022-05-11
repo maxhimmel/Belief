@@ -12,6 +12,8 @@ namespace MaulGrab.Gameplay.Weapons
 {
     public class Gun : MonoBehaviour
     {
+        public bool IsMagazineEmpty => _currentAmmoCount <= 0;
+
         [SerializeField] private Transform _shotOrigin = default;
 
         [BoxGroup( "Spread" )]

@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using Zenject;
 using MaulGrab.Gameplay.Weapons;
+using MaulGrab.Gameplay.Pickups;
 
 namespace MaulGrab.Gameplay.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour,
+		ICollector<AmmoPickup>
     {
 		private Rewired.Player _input;
 		private CharacterMotor _motor;
@@ -49,6 +51,16 @@ namespace MaulGrab.Gameplay.Player
 			else if ( _input.GetButtonUp( ReConsts.Action.Fire ) )
 			{
 				_gun.StopFiring();
+			}
+		}
+
+		public void Collect( AmmoPickup pickup )
+		{
+			_gun.AddAmmo( pickup.AmmoCount );
+
+			if ( _gun.IsMagazineEmpty )
+			{
+				_gun.Reload();
 			}
 		}
 	}
