@@ -36,8 +36,11 @@ namespace MaulGrab.Gameplay.Weapons
         [SerializeField] private float _shotForce = 10;
         [BoxGroup( "Misc" )]
         [SerializeField] private float _shotTorque = 30;
+        [BoxGroup( "Misc" )]
+        [SerializeField] private float _blowbackForce = 2;
 
-        private Projectile.Factory _projectileFactory;
+        private Rigidbody2D _ownerBody;
+		private Projectile.Factory _projectileFactory;
 		private IGunAnimator _gunAnimator;
 
 		private bool _isFiringRequested = false;
@@ -46,9 +49,11 @@ namespace MaulGrab.Gameplay.Weapons
         private int _heldAmmoCount = 0;
 
         [Inject]
-		public void Construct( Projectile.Factory projectileFactory,
+		public void Construct( Rigidbody2D ownerBody,
+            Projectile.Factory projectileFactory,
             IGunAnimator gunAnimator)
 		{
+            _ownerBody = ownerBody;
             _projectileFactory = projectileFactory;
             _gunAnimator = gunAnimator;
 
@@ -149,6 +154,11 @@ namespace MaulGrab.Gameplay.Weapons
                 newProjectile.Fire( bulletDir * _shotForce, _shotTorque );
             }
 
+            OnFired();
+		}
+
+        private void OnFired()
+        {
             _fireCountdown = _fireRate;
 
             if ( _useAmmo )
@@ -156,8 +166,11 @@ namespace MaulGrab.Gameplay.Weapons
                 _currentAmmoCount = Mathf.Max( --_currentAmmoCount, 0 );
             }
 
+            Vector3 blowbackDir = -_shotOrigin.up;
+            _ownerBody.AddForce( blowbackDir * _blowbackForce, ForceMode2D.Impulse );
+
             _gunAnimator.OnFired();
-		}
+        }
 
 #if UNITY_EDITOR
 		[Header( "Editor/Tools" )]
