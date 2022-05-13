@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MaulGrab.Gameplay.Animation;
 using MaulGrab.Gameplay.Weapons;
 using UnityEngine;
 using Zenject;
@@ -15,6 +16,8 @@ namespace MaulGrab.Installers
 			Container.BindFactory<Projectile, Projectile.Factory>()
 				.FromComponentInNewPrefab( _projectilePrefab )
 				.UnderTransform( GetEmptyParent );
+
+			Container.Bind<IGunAnimator>().FromComponentInChildren().AsSingle();
 		}
 
 		private Transform GetEmptyParent( InjectContext context )

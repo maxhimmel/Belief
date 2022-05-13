@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using System;
+using MaulGrab.Gameplay.Animation;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -36,15 +38,19 @@ namespace MaulGrab.Gameplay.Weapons
         [SerializeField] private float _shotTorque = 30;
 
         private Projectile.Factory _projectileFactory;
-        private bool _isFiringRequested = false;
+		private IGunAnimator _gunAnimator;
+
+		private bool _isFiringRequested = false;
         private float _fireCountdown = 0;
         private int _currentAmmoCount = 0;
         private int _heldAmmoCount = 0;
 
         [Inject]
-		public void Construct( Projectile.Factory projectileFactory )
+		public void Construct( Projectile.Factory projectileFactory,
+            IGunAnimator gunAnimator)
 		{
             _projectileFactory = projectileFactory;
+            _gunAnimator = gunAnimator;
 
             _currentAmmoCount = _magazineSize;
             _heldAmmoCount = _maxAmmo;
@@ -54,12 +60,20 @@ namespace MaulGrab.Gameplay.Weapons
 
         public void StartFiring()
 		{
-            _isFiringRequested = true;
+            if ( !_isFiringRequested )
+            {
+                _isFiringRequested = true;
+                _gunAnimator.OnFiringStart();
+            }
 		}
 
         public void StopFiring()
         {
-            _isFiringRequested = false;
+            if ( _isFiringRequested )
+            {
+                _isFiringRequested = false;
+                _gunAnimator.OnFiringEnd();
+            }
         }
 
         public void Reload()
@@ -74,6 +88,8 @@ namespace MaulGrab.Gameplay.Weapons
 
             _heldAmmoCount -= ammoReceiveAmount;
             _currentAmmoCount += ammoReceiveAmount;
+
+            _gunAnimator.OnReloaded();
 		}
 
         public void AddAmmo( int ammo )
@@ -139,6 +155,8 @@ namespace MaulGrab.Gameplay.Weapons
             {
                 _currentAmmoCount = Mathf.Max( --_currentAmmoCount, 0 );
             }
+
+            _gunAnimator.OnFired();
 		}
 
 #if UNITY_EDITOR
