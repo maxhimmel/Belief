@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Sirenix.Utilities;
 using MaulGrab.Gameplay.Movement;
 using UnityEngine;
-using UnityEngine.Scripting;
 using Zenject;
 using MaulGrab.Gameplay.Weapons;
 using MaulGrab.Gameplay.Pickups;

@@ -1,4 +1,3 @@
-using MaulGrab.Gameplay.Player;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
