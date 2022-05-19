@@ -6,18 +6,18 @@ namespace MaulGrab.Gameplay.Weapons
 {
     public class Projectile : MonoBehaviour, IExpiry
     {
-		private Rigidbody2D _body;
+		private IRigidbody _body;
 
 		[Inject]
-		public void Construct( Rigidbody2D body )
+		public void Construct( IRigidbody body )
 		{
             _body = body;
 		}
 
         public void Fire( Vector3 velocity, float torque )
 		{
-			_body.AddForce( velocity, ForceMode2D.Impulse );
-			_body.AddTorque( torque, ForceMode2D.Impulse );
+			_body.AddForce( velocity, ForceType.Impulse );
+			_body.AddTorque( Vector3.forward * torque, ForceType.Impulse );
 		}
 
 		public void OnExpired()

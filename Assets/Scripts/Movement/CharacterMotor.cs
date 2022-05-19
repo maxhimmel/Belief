@@ -1,3 +1,4 @@
+using MaulGrab.Gameplay.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
@@ -14,17 +15,17 @@ namespace MaulGrab.Gameplay.Movement
 		[BoxGroup( "Rotation" )]
 		[SerializeField] private float _rotationSpeed = 720;
 
-		private Rigidbody2D _body;
+		private IRigidbody _body;
 		private Vector3 _desiredVelocity;
 		private Vector3 _velocity;
 		private Quaternion _rotation;
 		private Vector3 _facingDirection;
 
 		[Inject]
-        public void Construct( Rigidbody2D body )
+        public void Construct( IRigidbody body )
 		{
             _body = body;
-			_facingDirection = body.transform.up;
+			_facingDirection = body.Transform.up;
 		}
 
 		public void ClearVelocity()
@@ -47,8 +48,8 @@ namespace MaulGrab.Gameplay.Movement
 
 		private void UpdateState()
 		{
-			_velocity = _body.velocity;
-			_rotation = Quaternion.Euler( 0, 0, _body.rotation );
+			_velocity = _body.Velocity;
+			_rotation = _body.Rotation;
 
 			if ( _velocity.sqrMagnitude > 0.01f )
 			{
@@ -64,14 +65,14 @@ namespace MaulGrab.Gameplay.Movement
 
 			// Rotation
 			float angleDelta = _rotationSpeed * Time.deltaTime;
-			Quaternion facing = Quaternion.LookRotation( _body.transform.forward, _facingDirection );
+			Quaternion facing = Quaternion.LookRotation( _body.Transform.forward, _facingDirection );
 			_rotation = Quaternion.RotateTowards( _rotation, facing, angleDelta );
 		}
 
 		private void Apply()
 		{
-			_body.velocity = _velocity;
-			_body.SetRotation( _rotation );
+			_body.Velocity = _velocity;
+			_body.Rotation = _rotation;
 		}
 	}
 }

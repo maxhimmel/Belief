@@ -11,10 +11,12 @@ namespace MaulGrab.Installers
     {
 		public override void InstallBindings()
 		{
-			Container.Bind<Rigidbody2D>().FromComponentOnRoot().AsSingle();
+			Rigidbody body = GetComponent<Rigidbody>();
+
+			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
 
-			Container.Bind<Collider2D>().FromComponentInChildren().AsSingle();
+			Container.Bind<Collider>().FromComponentInChildren().AsSingle();
 		}
 	}
 }

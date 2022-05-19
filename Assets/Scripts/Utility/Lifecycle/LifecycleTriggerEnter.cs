@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace MaulGrab.Gameplay.Utility
 {
-	[RequireComponent( typeof( Collider2D ) )]
+	[RequireComponent( typeof( Collider ) )]
 
 	public class LifecycleTriggerEnter : LifecycleService
 	{
-		private void OnTriggerEnter2D( Collider2D collision )
+		private void OnTriggerEnter( Collider collision )
 		{
 			Expire();
 		}

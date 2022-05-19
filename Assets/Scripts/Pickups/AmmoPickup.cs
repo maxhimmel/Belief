@@ -12,7 +12,7 @@ namespace MaulGrab
 		[SerializeField] private int _ammoCount = 1;
 		[SerializeField] private bool _destroyOnPickup = true;
 
-		private void OnTriggerEnter2D( Collider2D collision )
+		private void OnTriggerEnter( Collider collision )
 		{
 			var collector = collision.GetComponentInParent<ICollector<AmmoPickup>>();
 			if ( collector != null )

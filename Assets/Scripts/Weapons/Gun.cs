@@ -2,6 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
 using MaulGrab.Gameplay.Animation;
+using MaulGrab.Gameplay.Utility;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -36,7 +37,7 @@ namespace MaulGrab.Gameplay.Weapons
         [BoxGroup( "Misc" )]
         [SerializeField] private float _blowbackForce = 2;
 
-        private Rigidbody2D _ownerBody;
+        private IRigidbody _ownerBody;
 		private Projectile.Factory _projectileFactory;
 		private IGunAnimator _gunAnimator;
 
@@ -46,7 +47,7 @@ namespace MaulGrab.Gameplay.Weapons
         private int _heldAmmoCount = 0;
 
         [Inject]
-		public void Construct( Rigidbody2D ownerBody,
+		public void Construct( IRigidbody ownerBody,
             Projectile.Factory projectileFactory,
             IGunAnimator gunAnimator)
 		{
@@ -164,7 +165,7 @@ namespace MaulGrab.Gameplay.Weapons
             }
 
             Vector3 blowbackDir = -_shotOrigin.up;
-            _ownerBody.AddForce( blowbackDir * _blowbackForce, ForceMode2D.Impulse );
+            _ownerBody.AddForce( blowbackDir * _blowbackForce, ForceType.Impulse );
 
             _gunAnimator.OnFired();
         }
