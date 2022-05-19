@@ -1,5 +1,4 @@
 using MaulGrab.Gameplay.Utility;
-using UnityEngine;
 using Zenject;
 
 namespace MaulGrab.Installers
