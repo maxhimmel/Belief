@@ -25,7 +25,7 @@ namespace MaulGrab.Gameplay.Movement
         public void Construct( IRigidbody body )
 		{
             _body = body;
-			_facingDirection = body.Transform.up;
+			_facingDirection = body.Transform.forward;
 		}
 
 		public void ClearVelocity()
@@ -65,7 +65,7 @@ namespace MaulGrab.Gameplay.Movement
 
 			// Rotation
 			float angleDelta = _rotationSpeed * Time.deltaTime;
-			Quaternion facing = Quaternion.LookRotation( _body.Transform.forward, _facingDirection );
+			Quaternion facing = Quaternion.LookRotation( _facingDirection, Vector3.up );
 			_rotation = Quaternion.RotateTowards( _rotation, facing, angleDelta );
 		}
 
