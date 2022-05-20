@@ -30,7 +30,6 @@ namespace MaulGrab.Gameplay.Utility
 			get {
 				return _body.drag;
 			}
-
 			set {
 				_body.drag = value;
 			}
@@ -40,9 +39,17 @@ namespace MaulGrab.Gameplay.Utility
 			get {
 				return _body.angularDrag;
 			}
-
 			set {
 				_body.angularDrag = value;
+			}
+		}
+
+		public BodyConstraints Constraints {
+			get {
+				return (BodyConstraints)_body.constraints;
+			}
+			set {
+				_body.constraints = (RigidbodyConstraints)value;
 			}
 		}
 
