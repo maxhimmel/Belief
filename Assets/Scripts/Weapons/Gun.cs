@@ -135,15 +135,15 @@ namespace MaulGrab.Gameplay.Weapons
 
         private void Fire()
         {
-            Vector3 upDir = _shotOrigin.up;
+            Vector3 forwardDir = _shotOrigin.forward;
             Vector3 rightDir = _shotOrigin.right;
-            Vector3 normal = _shotOrigin.forward;
+            Vector3 normal = _shotOrigin.up;
             Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
             for ( float angle = 0; angle <= _shotSpread; angle += stepAngle )
             {
-                Vector3 bulletDir = upDir * Mathf.Cos( angle * Mathf.Deg2Rad ) + rightDir * Mathf.Sin( angle * Mathf.Deg2Rad );
+                Vector3 bulletDir = forwardDir * Mathf.Cos( angle * Mathf.Deg2Rad ) + rightDir * Mathf.Sin( angle * Mathf.Deg2Rad );
                 bulletDir = rotationOffset * bulletDir;
 
                 Projectile newProjectile = _projectileFactory.Create();
@@ -164,7 +164,7 @@ namespace MaulGrab.Gameplay.Weapons
                 _currentAmmoCount = Mathf.Max( --_currentAmmoCount, 0 );
             }
 
-            Vector3 blowbackDir = -_shotOrigin.up;
+            Vector3 blowbackDir = -_shotOrigin.forward;
             _ownerBody.AddForce( blowbackDir * _blowbackForce, ForceType.Impulse );
 
             _gunAnimator.OnFired();
@@ -182,18 +182,18 @@ namespace MaulGrab.Gameplay.Weapons
 
             Transform shotOrigin = _shotOrigin ?? transform;
             Vector3 origin = shotOrigin.position;
-            Vector3 upDir = shotOrigin.up;
+            Vector3 forwardDir = shotOrigin.forward;
             Vector3 rightDir = shotOrigin.right;
-            Vector3 normal = shotOrigin.forward;
+            Vector3 normal = shotOrigin.up;
             Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
 
-            Vector3 arcStart = rotationOffset * upDir;
+            Vector3 arcStart = rotationOffset * forwardDir;
             Handles.DrawWireArc( origin, -normal, arcStart, _shotSpread, _drawRange );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
             for ( float angle = 0; angle <= _shotSpread; angle += stepAngle )
 			{
-				Vector3 bulletDir = upDir * Mathf.Cos( angle * Mathf.Deg2Rad ) + rightDir * Mathf.Sin( angle * Mathf.Deg2Rad );
+				Vector3 bulletDir = forwardDir * Mathf.Cos( angle * Mathf.Deg2Rad ) + rightDir * Mathf.Sin( angle * Mathf.Deg2Rad );
                 bulletDir = rotationOffset * bulletDir;
 
 				Gizmos.DrawRay( origin, bulletDir * _drawRange );
