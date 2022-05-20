@@ -23,10 +23,11 @@ namespace MaulGrab.Gameplay.Weapons
 			_collider = collider;
 		}
 
-		private void OnCollisionEnter2D( Collision2D collision )
+		private void OnCollisionEnter( Collision collision )
 		{
 			_body.LinearDrag = _sleepLinearDrag;
 			_body.AngularDrag = _sleepAngularDrag;
+			_body.Constraints = BodyConstraints.FreezePositionY;
 
 			_collider.isTrigger = true;
 			_collider.gameObject.layer = LayerMask.GetMask( "Default" );
