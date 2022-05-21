@@ -7,6 +7,7 @@ namespace MaulGrab.Gameplay.Utility
     {
 		public Transform Transform { get; }
 		public Vector3 Velocity { get; set; }
+		public Vector3 Position { get; set; }
 		public Quaternion Rotation { get; set; }
 		public float LinearDrag { get; set; }
 		public float AngularDrag { get; set; }

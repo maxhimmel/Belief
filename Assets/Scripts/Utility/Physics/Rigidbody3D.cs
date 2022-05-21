@@ -17,6 +17,15 @@ namespace MaulGrab.Gameplay.Utility
 			}
 		}
 
+		public Vector3 Position {
+			get {
+				return _body.position;
+			}
+			set {
+				_body.position = value;
+			}
+		}
+
 		public Quaternion Rotation {
 			get {
 				return _body.rotation;
