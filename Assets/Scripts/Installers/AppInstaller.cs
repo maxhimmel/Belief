@@ -1,3 +1,4 @@
+using MaulGrab.Gameplay;
 using MaulGrab.Gameplay.Utility;
 using Zenject;
 
@@ -7,6 +8,7 @@ namespace MaulGrab.Installers
     {
         public override void InstallBindings()
         {
+            Container.Bind<World>().AsSingle();
             Container.Bind<Rewired.Player>().FromMethod( GetFirstPlayer ).AsSingle();
         }
 
