@@ -1,0 +1,44 @@
+# ProBuilder 4.5.2
+# https://unity3d.com/unity/features/worldbuilding/probuilder
+# 5/20/2022 5:34:55 PM
+
+mtllib ./M_RampGuy.mtl
+o M_RampGuy
+
+g RampGuy
+v -1 0 -1
+v -1 0 1
+v -1 1.5 -1
+v 1 0 -1
+v 1 1.5 -1
+v 1 0 1
+
+vt -1 0
+vt 1 0
+vt -1 1.5
+vt 1 1.5
+vt -1 0.8
+vt 1 0.8
+vt -1 -1.7
+vt 1 -1.7
+vt 1 -1
+vt -1 -1
+vt 1 1
+vt -1 1
+
+vn -1 0 0
+vn 0 0 -1
+vn 1 0 0
+vn 0 0.8 0.6
+vn 0 -1 0
+
+usemtl GreyBox
+f 2/2/1 3/3/1 1/1/1
+f 5/4/3 6/1/3 4/2/3
+f 5/3/2 4/1/2 1/2/2
+f 1/2/2 3/4/2 5/3/2
+f 3/8/4 2/6/4 6/5/4
+f 6/5/4 5/7/4 3/8/4
+f 2/12/5 1/10/5 4/9/5
+f 4/9/5 6/11/5 2/12/5
+
