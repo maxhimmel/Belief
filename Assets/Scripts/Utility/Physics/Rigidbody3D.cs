@@ -35,6 +35,12 @@ namespace MaulGrab.Gameplay.Utility
 			}
 		}
 
+		public Vector3 WorldCenterOfMass {
+			get {
+				return _body.worldCenterOfMass;
+			}
+		}
+
 		public float LinearDrag {
 			get {
 				return _body.drag;
