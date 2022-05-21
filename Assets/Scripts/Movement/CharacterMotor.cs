@@ -118,7 +118,7 @@ namespace MaulGrab.Gameplay.Movement
 			{
 				return false;
 			}
-			if ( !Physics.Raycast( _body.Position, -_world.Up, out RaycastHit hitInfo, _groundProbeDistance, _groundCheckLayer ) )
+			if ( !Physics.Raycast( _body.WorldCenterOfMass, -_world.Up, out RaycastHit hitInfo, _groundProbeDistance, _groundCheckLayer ) )
 			{
 				return false;
 			}

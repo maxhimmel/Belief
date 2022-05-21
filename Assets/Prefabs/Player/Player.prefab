@@ -98,7 +98,7 @@ MonoBehaviour:
   _groundCheckLayer:
     serializedVersion: 2
     m_Bits: 1
-  _groundProbeDistance: 0.5
+  _groundProbeDistance: 1
 --- !u!54 &1893313287719232751
 Rigidbody:
   m_ObjectHideFlags: 0
