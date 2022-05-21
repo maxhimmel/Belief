@@ -95,10 +95,10 @@ MonoBehaviour:
   _rotationSpeed: 540
   _maxGroundAngle: 50
   _maxGroundSnapSpeed: 12.63
-  _groundProbeDistance: 0.5
   _groundCheckLayer:
     serializedVersion: 2
     m_Bits: 1
+  _groundProbeDistance: 0.5
 --- !u!54 &1893313287719232751
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -436,7 +436,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 0a8acf29980155342a394f01aa0551ec, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
