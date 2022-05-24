@@ -3,6 +3,7 @@ using UnityEngine;
 using Zenject;
 using MaulGrab.Gameplay.Animation;
 using MaulGrab.Gameplay.Utility;
+using MaulGrab.Extensions;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -17,23 +18,23 @@ namespace MaulGrab.Gameplay.Weapons
         [SerializeField] private Transform _shotOrigin = default;
 
         [BoxGroup( "Spread" )]
-        [SerializeField, MinValue( 1 )] private int _bulletsPerShot = 1;
+        [SerializeField, Min( 1 )] private int _bulletsPerShot = 1;
         [BoxGroup( "Spread" )]
         [SerializeField, Range( 0, 360 )] private float _shotSpread = 0;
 
         [BoxGroup( "Ammo" )]
         [SerializeField] private bool _useAmmo = true;
         [BoxGroup( "Ammo" )]
-        [SerializeField, MinValue( 1 ), ShowIf( "_useAmmo" )] private int _magazineSize = 6;
+        [SerializeField, Min( 1 ), ShowIf( "_useAmmo" )] private int _magazineSize = 6;
         [BoxGroup( "Ammo" )]
-        [SerializeField, MinValue( 1 ), ShowIf( "_useAmmo" )] private int _maxAmmo = 36;
+        [SerializeField, Min( 1 ), ShowIf( "_useAmmo" )] private int _maxAmmo = 36;
 
         [BoxGroup( "Misc" )]
-        [SerializeField, MinValue( 0 )] private float _fireRate = 0.25f;
+        [SerializeField, Min( 0 )] private float _fireRate = 0.25f;
         [BoxGroup( "Misc" )]
         [SerializeField] private float _shotForce = 10;
         [BoxGroup( "Misc" )]
-        [SerializeField] private float _shotTorque = 30;
+        [SerializeField, MinMaxSlider( 0, 20, true )] private Vector2 _shotTorqueRange = new Vector2( 6, 7 );
         [BoxGroup( "Misc" )]
         [SerializeField] private float _blowbackForce = 2;
 
@@ -138,7 +139,7 @@ namespace MaulGrab.Gameplay.Weapons
             Vector3 forwardDir = _shotOrigin.forward;
             Vector3 rightDir = _shotOrigin.right;
             Vector3 normal = _shotOrigin.up;
-            Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
+            Quaternion rotationOffset = Quaternion.AngleAxis( -_shotSpread / 2f, normal );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
             for ( float angle = 0; angle <= _shotSpread; angle += stepAngle )
@@ -149,7 +150,7 @@ namespace MaulGrab.Gameplay.Weapons
                 Projectile newProjectile = _projectileFactory.Create();
                 newProjectile.transform.SetPositionAndRotation( _shotOrigin.position, _shotOrigin.rotation );
 
-                newProjectile.Fire( bulletDir * _shotForce, _shotTorque );
+                newProjectile.Fire( bulletDir * _shotForce, _shotTorqueRange.RandomRange() );
             }
 
             OnFired();
@@ -185,10 +186,10 @@ namespace MaulGrab.Gameplay.Weapons
             Vector3 forwardDir = shotOrigin.forward;
             Vector3 rightDir = shotOrigin.right;
             Vector3 normal = shotOrigin.up;
-            Quaternion rotationOffset = Quaternion.AngleAxis( _shotSpread / 2f, normal );
+            Quaternion rotationOffset = Quaternion.AngleAxis( -_shotSpread / 2f, normal );
 
             Vector3 arcStart = rotationOffset * forwardDir;
-            Handles.DrawWireArc( origin, -normal, arcStart, _shotSpread, _drawRange );
+            Handles.DrawWireArc( origin, normal, arcStart, _shotSpread, _drawRange );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
             for ( float angle = 0; angle <= _shotSpread; angle += stepAngle )
@@ -197,6 +198,12 @@ namespace MaulGrab.Gameplay.Weapons
                 bulletDir = rotationOffset * bulletDir;
 
 				Gizmos.DrawRay( origin, bulletDir * _drawRange );
+
+                if ( _shotSpread == 0 )
+				{
+                    // Stop infinite loop ...
+                    break;
+				}
 			}
         }
 #endif
