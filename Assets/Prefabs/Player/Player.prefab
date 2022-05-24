@@ -199,8 +199,8 @@ MonoBehaviour:
   _magazineSize: 1
   _maxAmmo: 1
   _fireRate: 0.2
-  _shotForce: 15
-  _shotTorque: 6.85
+  _shotForce: 20
+  _shotTorqueRange: {x: 6, y: 9.216946}
   _blowbackForce: 16
   _drawRange: 5
   _drawColor: {r: 1, g: 0, b: 0, a: 1}
