@@ -1,0 +1,18 @@
+{
+    "name": "MaulGrab.Editor",
+    "rootNamespace": "MaulGrab.Editor",
+    "references": [
+        "GUID:39b6c5b66bd76834197476d502fb555a"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
