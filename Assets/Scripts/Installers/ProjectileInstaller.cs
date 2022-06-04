@@ -16,7 +16,7 @@ namespace MaulGrab.Installers
 			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
 
-			Container.Bind<Collider>().FromComponentInChildren().AsSingle();
+			Container.Bind<Collider>().FromComponentsInChildren().AsSingle();
 		}
 	}
 }

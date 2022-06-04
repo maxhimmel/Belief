@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using MaulGrab.Gameplay.Utility;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -13,14 +14,15 @@ namespace MaulGrab.Gameplay.Weapons
 		[SerializeField] private float _sleepAngularDrag = 1;
 
 		private IRigidbody _body;
-		private Collider _collider;
+		private List<Collider> _colliders;
+		private LayerMask _collectableLayer = 0;
 
 		[Inject]
 		public void Construct( IRigidbody body,
-			Collider collider )
+			List<Collider> collider )
 		{
 			_body = body;
-			_collider = collider;
+			_colliders = collider;
 		}
 
 		private void OnCollisionEnter( Collision collision )
@@ -29,8 +31,16 @@ namespace MaulGrab.Gameplay.Weapons
 			_body.AngularDrag = _sleepAngularDrag;
 			_body.Constraints = BodyConstraints.FreezePositionY;
 
-			_collider.isTrigger = true;
-			_collider.gameObject.layer = LayerMask.GetMask( "Default" );
+			foreach ( var collider in _colliders )
+			{
+				collider.isTrigger = true;
+				collider.gameObject.layer = _collectableLayer;
+			}
+		}
+
+		private void Awake()
+		{
+			_collectableLayer = LayerMask.NameToLayer( "Default" );
 		}
 	}
 }
