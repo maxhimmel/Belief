@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSpeed: 11.63
   _acceleration: 50.22
-  _rotationSpeed: 540
+  _rotationSpeed: 630
   _maxGroundAngle: 50
   _maxGroundSnapSpeed: 12.63
   _groundCheckLayer:
