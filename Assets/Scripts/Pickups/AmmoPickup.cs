@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MaulGrab.Gameplay.Pickups;
+using MaulGrab.Gameplay.Utility;
 using UnityEngine;
 
 namespace MaulGrab
@@ -14,8 +15,7 @@ namespace MaulGrab
 
 		private void OnTriggerEnter( Collider collision )
 		{
-			var collector = collision.GetComponentInParent<ICollector<AmmoPickup>>();
-			if ( collector != null )
+			if ( IsValid( collision, out var collector ) )
 			{
 				collector?.Collect( this );
 
@@ -24,6 +24,20 @@ namespace MaulGrab
 					Destroy( gameObject );
 				}
 			}
+		}
+
+		private bool IsValid( Collider other, out ICollector<AmmoPickup> collector )
+		{
+			collector = null;
+
+			var body = other.attachedRigidbody;
+			if ( body == null )
+			{
+				return false;
+			}
+
+			collector = body.GetComponent<ICollector<AmmoPickup>>();
+			return collector != null;
 		}
 	}
 }
