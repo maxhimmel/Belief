@@ -41,6 +41,7 @@ namespace MaulGrab.Gameplay.Weapons
         private IRigidbody _ownerBody;
 		private Projectile.Factory _projectileFactory;
 		private IGunAnimator _gunAnimator;
+		private AimAssist _aimAssist;
 
 		private bool _isFiringRequested = false;
         private float _fireCountdown = 0;
@@ -50,11 +51,13 @@ namespace MaulGrab.Gameplay.Weapons
         [Inject]
 		public void Construct( IRigidbody ownerBody,
             Projectile.Factory projectileFactory,
-            IGunAnimator gunAnimator)
+            IGunAnimator gunAnimator,
+            AimAssist aimAssist )
 		{
             _ownerBody = ownerBody;
             _projectileFactory = projectileFactory;
             _gunAnimator = gunAnimator;
+            _aimAssist = aimAssist;
 
             _currentAmmoCount = _magazineSize;
             _heldAmmoCount = _maxAmmo;
@@ -136,9 +139,10 @@ namespace MaulGrab.Gameplay.Weapons
 
         private void Fire()
         {
-            Vector3 forwardDir = _shotOrigin.forward;
-            Vector3 rightDir = _shotOrigin.right;
-            Vector3 normal = _shotOrigin.up;
+            Quaternion aimAssistRotation = _aimAssist.GetTargetDirection();
+            Vector3 forwardDir = aimAssistRotation * Vector3.forward;
+            Vector3 rightDir = aimAssistRotation * Vector3.right;
+            Vector3 normal = aimAssistRotation* Vector3.up;
             Quaternion rotationOffset = Quaternion.AngleAxis( -_shotSpread / 2f, normal );
 
             float stepAngle = _shotSpread / (_bulletsPerShot - 1);
