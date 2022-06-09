@@ -1,3 +1,4 @@
+using MaulGrab.Extensions;
 using UnityEngine;
 
 namespace MaulGrab.Gameplay.Utility
@@ -31,8 +32,8 @@ namespace MaulGrab.Gameplay.Utility
 		{
 			body = null;
 
-			LayerMask otherLayer = 1 << other.gameObject.layer;			
-			if ( (otherLayer & _effectLayer) == 0 )
+			LayerMask otherLayer = 1 << other.gameObject.layer;
+			if ( !_effectLayer.HasFlag( otherLayer ) )
 			{
 				return false;
 			}
