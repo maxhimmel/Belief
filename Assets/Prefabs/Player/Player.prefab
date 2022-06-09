@@ -162,6 +162,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 7165240582841004646, guid: 9dbff95f61a54e84b947fc735a58c379, type: 3}
+  _aimAssistData:
+    DetectionLayer:
+      serializedVersion: 2
+      m_Bits: 256
+    QueryTriggers: 1
 --- !u!114 &359370088658960734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +207,7 @@ MonoBehaviour:
   _shotForce: 20
   _shotTorqueRange: {x: 6, y: 9.216946}
   _blowbackForce: 16
-  _drawRange: 5
+  _drawRange: 14
   _drawColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &359370089407439163
 GameObject:
@@ -467,6 +472,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1185431248320392936}
+  - component: {fileID: 7684729054037803586}
+  - component: {fileID: 3767056413640491224}
   m_Layer: 6
   m_Name: Center
   m_TagString: Untagged
@@ -492,6 +499,35 @@ Transform:
   m_Father: {fileID: 359370088586917114}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7684729054037803586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645781272806770080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1aaf6aadeaa26642af2ee27c33e92ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _influence: 1
+--- !u!114 &3767056413640491224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3645781272806770080}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0555b13acc8a8a42a72ec7d24f94bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _range: 15
+  _angle: 50
+  _outline: {r: 0, g: 0, b: 1, a: 1}
+  _fill: {r: 0, g: 0, b: 1, a: 0.05}
 --- !u!114 &3886366321717545281
 MonoBehaviour:
   m_ObjectHideFlags: 0
