@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using MaulGrab.Gameplay.Animation;
 using MaulGrab.Gameplay.Weapons;
 using UnityEngine;
@@ -17,7 +15,9 @@ namespace MaulGrab.Installers
 				.FromComponentInNewPrefab( _projectilePrefab )
 				.UnderTransform( GetEmptyParent );
 
-			Container.Bind<IGunAnimator>().FromComponentInChildren().AsSingle();
+			Container.Bind<IGunAnimator>()
+				.FromComponentInChildren()
+				.AsSingle();
 		}
 
 		private Transform GetEmptyParent( InjectContext context )
