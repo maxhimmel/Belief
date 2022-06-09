@@ -11,9 +11,9 @@ namespace MaulGrab.Installers
     {
 		public override void InstallBindings()
 		{
-			Rigidbody body = GetComponent<Rigidbody>();
-
+			var body = GetComponent<Rigidbody>();
 			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
+
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
 
 			Container.Bind<Collider>().FromComponentsInChildren().AsSingle();
