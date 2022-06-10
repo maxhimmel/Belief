@@ -13,7 +13,7 @@ namespace MaulGrab.Installers
 
 		public override void InstallBindings()
 		{
-			Rigidbody body = GetComponent<Rigidbody>();
+			Container.BindInstance( transform ).WithId( InstallerID.Owner ).AsSingle();
 
 			var body = GetComponent<Rigidbody>();
 			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
