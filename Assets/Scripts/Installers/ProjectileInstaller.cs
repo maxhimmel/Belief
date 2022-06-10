@@ -1,3 +1,4 @@
+using MaulGrab.Extensions;
 using MaulGrab.Gameplay;
 using MaulGrab.Gameplay.Utility;
 using MaulGrab.Gameplay.Weapons;
@@ -10,29 +11,32 @@ namespace MaulGrab.Installers
     {
 		public override void InstallBindings()
 		{
-			var body = GetComponent<Rigidbody>();
-			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
+			Container.Bind<IRigidbody>().To<Rigidbody3D>()
+				.FromMethod( context =>
+				{
+					var body = GetComponent<Rigidbody>();
+					return new Rigidbody3D( body );
+				} )
+				.AsSingle();
 
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
 
-			BindColliders( body );
+			BindColliders();
 			BindHitBox();
 		}
 
-		private void BindColliders( Rigidbody rootBody )
+		private void BindColliders()
 		{
 			Container.Bind<Collider>().FromMethodMultiple( context =>
 			{
+				var rootBody = GetComponent<Rigidbody>();
 				return rootBody.GetCompositeColliders();
 			} ).AsSingle();
 		}
 
 		private void BindHitBox()
 		{
-			Container.Bind<HitBox>().FromMethodMultiple( context =>
-			{
-				return GetComponentsInChildren<HitBox>();
-			} ).AsSingle();
+			Container.Bind<HitBox>().FromComponentsChildedTo( gameObject ).AsSingle();
 
 			Container.Bind<HitBoxService>().AsTransient();
 		}
