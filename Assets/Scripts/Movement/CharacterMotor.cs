@@ -96,9 +96,10 @@ namespace MaulGrab.Gameplay.Movement
 				}
 			}
 
-			if ( _velocity.sqrMagnitude > 0.01f )
+			Vector3 desiredFacingDirection = IsOnSteep ? _velocity : _desiredVelocity;
+			if ( desiredFacingDirection.sqrMagnitude > 0.01f )
 			{
-				Vector3 flattenedFacingDir = Vector3.ProjectOnPlane( _velocity, _groundNormal ).normalized;
+				Vector3 flattenedFacingDir = Vector3.ProjectOnPlane( desiredFacingDirection, _groundNormal ).normalized;
 				if ( flattenedFacingDir.sqrMagnitude > 0.01f )
 				{
 					_facingDirection = flattenedFacingDir;
