@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using MaulGrab.Gameplay;
 using MaulGrab.Gameplay.Utility;
 using MaulGrab.Gameplay.Weapons;
 using UnityEngine;
@@ -16,7 +15,26 @@ namespace MaulGrab.Installers
 
 			Container.BindInterfacesTo<Projectile>().FromComponentOnRoot().AsSingle();
 
-			Container.Bind<Collider>().FromComponentsInChildren().AsSingle();
+			BindColliders( body );
+			BindHitBox();
+		}
+
+		private void BindColliders( Rigidbody rootBody )
+		{
+			Container.Bind<Collider>().FromMethodMultiple( context =>
+			{
+				return rootBody.GetCompositeColliders();
+			} ).AsSingle();
+		}
+
+		private void BindHitBox()
+		{
+			Container.Bind<HitBox>().FromMethodMultiple( context =>
+			{
+				return GetComponentsInChildren<HitBox>();
+			} ).AsSingle();
+
+			Container.Bind<HitBoxService>().AsTransient();
 		}
 	}
 }
