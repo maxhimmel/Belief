@@ -14,8 +14,8 @@ TagManager:
   - Player
   - Skateboard
   - Enemy
-  - 
-  - 
+  - HitBox
+  - HurtBox
   - 
   - 
   - 
