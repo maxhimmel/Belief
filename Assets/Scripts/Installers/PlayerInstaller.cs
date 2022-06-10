@@ -1,3 +1,4 @@
+using MaulGrab.Extensions;
 using MaulGrab.Gameplay;
 using MaulGrab.Gameplay.Movement;
 using MaulGrab.Gameplay.Utility;
@@ -13,11 +14,6 @@ namespace MaulGrab.Installers
 
 		public override void InstallBindings()
 		{
-			Container.BindInstance( transform ).WithId( InstallerID.Owner ).AsSingle();
-
-			var body = GetComponent<Rigidbody>();
-			Container.Bind<IRigidbody>().To<Rigidbody3D>().AsSingle().WithArguments( body );
-
 			BindAimAssist();
 
 			Container.Bind<CharacterMotor>().FromComponentOnRoot().AsSingle();
@@ -27,15 +23,13 @@ namespace MaulGrab.Installers
 
 		private void BindAimAssist()
 		{
-			var visionBounds = GetComponentInChildren<VisionBounds>();
-			Container.BindInstance<VisionBounds>( visionBounds ).AsSingle();
+			Container.Bind<VisionBounds>().FromComponentChildedTo( gameObject ).AsSingle();
 
 			Container.Bind<IGameObjectProvider>()
 				.To<SphereOverlapProvider>()
 				.AsSingle().WithArguments( _aimAssistData );
 
-			var aimAssist = GetComponentInChildren<AimAssist>();
-			Container.BindInstance<AimAssist>( aimAssist ).AsSingle();
+			Container.Bind<AimAssist>().FromComponentChildedTo( gameObject ).AsSingle();
 		}
 	}
 }
