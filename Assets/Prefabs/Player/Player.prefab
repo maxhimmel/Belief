@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 359370088586917114}
+  - component: {fileID: 2390660197298200940}
   - component: {fileID: 359370088586917119}
   - component: {fileID: 359370088586917112}
   - component: {fileID: 359370088586917115}
@@ -36,6 +37,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2390660197298200940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 359370088586917109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72ed215c5b446f34aadc8ab8223f793d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &359370088586917119
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48,6 +61,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019ff040f762df14ea4fc25dd633aa7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _aimAssistData:
+    DetectionLayer:
+      serializedVersion: 2
+      m_Bits: 4294967295
+    QueryTriggers: 0
 --- !u!114 &359370088586917112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
+  - {fileID: 2390660197298200940}
   - {fileID: 359370088586917119}
   _installerPrefabs: []
   _autoRun: 1
@@ -162,11 +181,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _projectilePrefab: {fileID: 7165240582841004646, guid: 9dbff95f61a54e84b947fc735a58c379, type: 3}
-  _aimAssistData:
-    DetectionLayer:
-      serializedVersion: 2
-      m_Bits: 256
-    QueryTriggers: 1
 --- !u!114 &359370088658960734
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,6 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _influence: 1
+  _drawDebug: 0
 --- !u!114 &3767056413640491224
 MonoBehaviour:
   m_ObjectHideFlags: 0
