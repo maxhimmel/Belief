@@ -12,6 +12,7 @@ namespace MaulGrab.Gameplay.Player
     {
 		private Rewired.Player _input;
 		private CharacterMotor _motor;
+		private DashController _dashController;
 		private Gun _gun;
 		private CinemachineBrain _cineBrain;
 
@@ -19,11 +20,13 @@ namespace MaulGrab.Gameplay.Player
 		public void Construct( 
 			Rewired.Player input,
 			CharacterMotor motor,
+			DashController dashController,
 			Gun gun,
 			CinemachineBrain cineBrain)
 		{
 			_input = input;
 			_motor = motor;
+			_dashController = dashController;
 			_gun = gun;
 			_cineBrain = cineBrain;
 		}
@@ -31,8 +34,13 @@ namespace MaulGrab.Gameplay.Player
 		private void Update()
 		{
 			Vector3 moveInput = GetMoveDirection();
-			_motor.SetDesiredVelocity( moveInput );
 
+			if ( !_dashController.IsDashing )
+			{
+				_motor.SetDesiredVelocity( moveInput );
+			}
+
+			HandleDashInput( moveInput );
 			HandleGunInput();
 		}
 
@@ -44,8 +52,29 @@ namespace MaulGrab.Gameplay.Player
 			return Vector3.ClampMagnitude( moveInput, 1 );
 		}
 
+		private void HandleDashInput( Vector3 moveInput )
+		{
+			if ( _input.GetButtonDown( ReConsts.Action.Jump ) )
+			{
+				if ( CanDash() )
+				{
+					_dashController.Dash( moveInput );
+				}
+			}
+		}
+
+		private bool CanDash()
+		{
+			return !_dashController.IsDashing && !_gun.IsMagazineEmpty;
+		}
+
 		private void HandleGunInput()
 		{
+			if ( _dashController.IsDashing )
+			{
+				return;
+			}
+
 			if ( _input.GetButtonDown( ReConsts.Action.Fire ) )
 			{
 				_gun.StartFiring();
