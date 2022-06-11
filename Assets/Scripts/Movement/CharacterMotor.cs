@@ -17,6 +17,8 @@ namespace MaulGrab.Gameplay.Movement
         [SerializeField] private float _maxSpeed = 5;
 		[BoxGroup( "Movement" )]
 		[SerializeField] private float _acceleration = 10;
+		[BoxGroup( "Movement" )]
+		[SerializeField] private float _airAcceleration = 1;
 
 		[BoxGroup( "Rotation" )]
 		[SerializeField] private float _rotationSpeed = 720;
@@ -155,7 +157,8 @@ namespace MaulGrab.Gameplay.Movement
 			float currentX = Vector3.Dot( _velocity, xAxis );
 			float currentZ = Vector3.Dot( _velocity, zAxis );
 
-			float speedDelta = _acceleration * Time.deltaTime;
+			float acceleration = IsGrounded ? _acceleration : _airAcceleration;
+			float speedDelta = acceleration * Time.deltaTime;
 			float newX = Mathf.MoveTowards( currentX, _desiredVelocity.x, speedDelta );
 			float newZ = Mathf.MoveTowards( currentZ, _desiredVelocity.z, speedDelta );
 
