@@ -8,7 +8,10 @@ namespace MaulGrab.Gameplay.Movement
     public class CharacterMotor : MonoBehaviour
     {
 		public bool IsGrounded => _groundContactCount > 0;
-		private bool IsOnSteep => _steepContactCount > 0;
+		public bool IsOnSteep => _steepContactCount > 0;
+		public float MaxSpeed => _maxSpeed;
+		public float Acceleration => _acceleration;
+		public Vector3 FacingDirection => _facingDirection;
 
 		[BoxGroup( "Movement" )]
         [SerializeField] private float _maxSpeed = 5;
@@ -52,10 +55,12 @@ namespace MaulGrab.Gameplay.Movement
 			_groundContactCount = 0;
 		}
 
-		public void ClearVelocity()
+		public void ScaleVelocity( float scalar )
 		{
-			_velocity = Vector3.zero;
-			_desiredVelocity = Vector3.zero;
+			_velocity *= scalar;
+			_desiredVelocity *= scalar;
+
+			_body.Velocity *= scalar;
 		}
 
         public void SetDesiredVelocity( Vector3 direction )
@@ -234,6 +239,16 @@ namespace MaulGrab.Gameplay.Movement
 					_steepNormal += contact.normal;
 				}
 			}
+		}
+
+		public void SetMaxSpeed( float maxSpeed )
+		{
+			_maxSpeed = maxSpeed;
+		}
+
+		public void SetAcceleration( float acceleration )
+		{
+			_acceleration = acceleration;
 		}
 	}
 }
