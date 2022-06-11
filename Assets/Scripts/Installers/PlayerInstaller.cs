@@ -11,12 +11,16 @@ namespace MaulGrab.Installers
     public class PlayerInstaller : MonoInstaller
 	{
 		[SerializeField] private CollisionQueryData _aimAssistData = default;
+		[SerializeField] private DashData _dashData = default;
 
 		public override void InstallBindings()
 		{
 			BindAimAssist();
 
 			Container.Bind<CharacterMotor>().FromComponentOnRoot().AsSingle();
+
+			Container.BindInstance( _dashData ).AsSingle();
+			Container.Bind<DashController>().AsSingle();
 
 			Container.Bind<Gun>().FromComponentInChildren().AsSingle();
 		}
