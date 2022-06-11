@@ -65,12 +65,21 @@ namespace MaulGrab.Gameplay.Player
 
 		private bool CanDash()
 		{
-			return !_dashController.IsDashing && !_gun.IsMagazineEmpty;
+			if ( !_motor.IsGrounded )
+			{
+				return false;
+			}
+			if ( _gun.IsMagazineEmpty )
+			{
+				return false;
+			}
+
+			return !_dashController.IsDashing;
 		}
 
 		private void HandleGunInput()
 		{
-			if ( _dashController.IsDashing )
+			if ( !CanShoot() )
 			{
 				return;
 			}
@@ -83,6 +92,16 @@ namespace MaulGrab.Gameplay.Player
 			{
 				_gun.StopFiring();
 			}
+		}
+
+		private bool CanShoot()
+		{
+			if ( _dashController.IsDashing )
+			{
+				return false;
+			}
+
+			return _motor.IsGrounded;
 		}
 
 		public void Collect( AmmoPickup pickup )
