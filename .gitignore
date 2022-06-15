@@ -9,6 +9,7 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/[Uu]serSettings/
 
 # Local package data
 /ProjectSettings/Packages/com.unity.probuilder/Settings.json
