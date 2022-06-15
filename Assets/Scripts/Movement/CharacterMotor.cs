@@ -12,6 +12,7 @@ namespace MaulGrab.Gameplay.Movement
 		public float MaxSpeed => _maxSpeed;
 		public float Acceleration => _acceleration;
 		public Vector3 FacingDirection => _facingDirection;
+		public Vector3 Velocity => _body.Velocity;
 
 		[BoxGroup( "Movement" )]
         [SerializeField] private float _maxSpeed = 5;
